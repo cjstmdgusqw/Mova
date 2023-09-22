@@ -40,6 +40,7 @@ public class RoomServiceImpl implements RoomService {
 			roomdto.setRoomPeriod(room2.getRoomPeriod());
 			roomdto.setRoomPersonnel(room2.getRoomPersonnel());
 			roomdto.setRoomTitle(room2.getRoomTitle());
+			roomdto.setRoomOnline(room2.getRoomOnline());
 			rooms.add(roomdto);
 		}
 		return rooms;
