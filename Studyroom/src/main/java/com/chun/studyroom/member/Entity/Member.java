@@ -19,11 +19,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="member")
 public class Member {
-	@Id
-	@Column(name = "memberId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long memberID;
 	
+	@Id
 	@Column
 	private String Id;
 	
