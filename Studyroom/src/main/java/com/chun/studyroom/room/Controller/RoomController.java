@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class RoomController {
 	
 	@PostMapping("makeroom")
 	public ResponseEntity<String> makeroom(@ModelAttribute RoomDTO roomDto){
+		System.out.println(roomDto.getRoomTitle());
 		try {
 			roomservice.makeroom(roomDto);
 			return new ResponseEntity<String>("방 개설이 완료 되었습니다", HttpStatus.OK);
@@ -37,6 +39,15 @@ public class RoomController {
 			return new ResponseEntity<List<RoomDTO>>(roomservice.selectAllRoom(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("selectroom/{id}")
+	public ResponseEntity<RoomDTO> selectroom(@PathVariable Long id){
+		try {
+			return new ResponseEntity<RoomDTO>(roomservice.selectroom(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<RoomDTO>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

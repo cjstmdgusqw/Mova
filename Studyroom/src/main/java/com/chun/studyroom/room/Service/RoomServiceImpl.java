@@ -25,6 +25,7 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomOnline(roomdto.getRoomOnline());
 		room.setRoomPeriod(roomdto.getRoomPeriod());
 		room.setRoomPersonnel(roomdto.getRoomPersonnel());
+		room.setRoomTitle(roomdto.getRoomTitle());
 		roomrepository.save(room);
 	}
 
@@ -44,6 +45,20 @@ public class RoomServiceImpl implements RoomService {
 			rooms.add(roomdto);
 		}
 		return rooms;
+	}
+
+	@Override
+	public RoomDTO selectroom(Long id) throws Exception {
+		Optional<Room> rRoom = (roomrepository.findById(id));
+		RoomDTO room = new RoomDTO();
+		room.setRoomContent(rRoom.get().getRoomContent());
+		room.setRoomDeadline(rRoom.get().getRoomDeadline());
+		room.setRoomId(rRoom.get().getRoomId());
+		room.setRoomOnline(rRoom.get().getRoomOnline());
+		room.setRoomPeriod(rRoom.get().getRoomPeriod());
+		room.setRoomPersonnel(rRoom.get().getRoomPersonnel());
+		room.setRoomTitle(rRoom.get().getRoomTitle());
+		return room;
 	}
 
 }
