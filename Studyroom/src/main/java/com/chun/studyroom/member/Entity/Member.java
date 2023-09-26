@@ -22,6 +22,10 @@ public class Member {
 	
 	@Id
 	@Column
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long memberId;
+	
+	@Column
 	private String Id;
 	
 	@Column
@@ -32,6 +36,4 @@ public class Member {
 	
 	@Column
 	private String nickname;
-	
-	
 }

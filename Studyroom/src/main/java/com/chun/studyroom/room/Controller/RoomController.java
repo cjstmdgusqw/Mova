@@ -23,7 +23,6 @@ public class RoomController {
 	
 	@PostMapping("makeroom")
 	public ResponseEntity<String> makeroom(@ModelAttribute RoomDTO roomDto){
-		System.out.println(roomDto.getRoomTitle());
 		try {
 			roomservice.makeroom(roomDto);
 			return new ResponseEntity<String>("방 개설이 완료 되었습니다", HttpStatus.OK);

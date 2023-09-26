@@ -1,13 +1,14 @@
 package com.chun.studyroom.room.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chun.studyroom.member.Entity.Member;
+import com.chun.studyroom.member.Repository.MemberRespository;
 import com.chun.studyroom.room.DTO.RoomDTO;
 import com.chun.studyroom.room.Entity.Room;
 import com.chun.studyroom.room.Respository.RoomRespository;
@@ -16,6 +17,9 @@ public class RoomServiceImpl implements RoomService {
 	
 	@Autowired
 	private RoomRespository roomrepository;
+	
+	@Autowired
+	private MemberRespository memberrepository;
 
 	@Override
 	public void makeroom(RoomDTO roomdto) {
@@ -25,7 +29,11 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomOnline(roomdto.getRoomOnline());
 		room.setRoomPeriod(roomdto.getRoomPeriod());
 		room.setRoomPersonnel(roomdto.getRoomPersonnel());
-		room.setRoomTitle(roomdto.getRoomTitle());
+		room.setRoomTitle(roomdto.getRoomTitle());	
+		System.out.println(roomdto.getMemberId());
+		
+		Optional<Member> member = memberrepository.findById(roomdto.getMemberId());
+		room.setMember(member.get());
 		roomrepository.save(room);
 	}
 
@@ -58,6 +66,7 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomPeriod(rRoom.get().getRoomPeriod());
 		room.setRoomPersonnel(rRoom.get().getRoomPersonnel());
 		room.setRoomTitle(rRoom.get().getRoomTitle());
+		room.setMember(rRoom.get().getMember());
 		return room;
 	}
 

@@ -1,18 +1,25 @@
 package com.chun.studyroom.member.Service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chun.studyroom.member.DTO.MemberDTO;
 import com.chun.studyroom.member.Entity.Member;
+import com.chun.studyroom.member.Entity.TeamMember;
 import com.chun.studyroom.member.Repository.MemberRespository;
+import com.chun.studyroom.member.Repository.TeamMemberRespository;
+import com.chun.studyroom.room.Respository.RoomRespository;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberRespository memberrespository;
+	
+	@Autowired
+	private RoomRespository roomrespository;
+	
+	@Autowired
+	private TeamMemberRespository teammemberrespository;
 
 	@Override
 	public void insertmember(MemberDTO memberDto) {
@@ -25,14 +32,24 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void selectmember(String id, String password) throws Exception {
-		Optional<Member> omember = memberrespository.findById(id);
-		if(omember.isEmpty()) {
-			throw new Exception("아이디 오류");
+	public String selectmember(String id, String password) throws Exception {
+		Member Member = memberrespository.selectMember(id, password);
+		if(Member.getId().isEmpty()) {
+			return "정보를 다시 입력해주세요";
 		}
-		Member member = omember.get();
-		if(!member.getPassword().equals(password)) {
-			throw new Exception("비밀번호 오류");
-		}
+		return "로그인인 완료되었습니다";
+	}
+
+	@Override
+	public Long memberid(String id) throws Exception {
+		return memberrespository.selectmemberId(id);
+	}
+
+	@Override
+	public void applyteam(Long id, Long roomid) {
+		TeamMember teammember = new TeamMember();
+		teammember.setMember(memberrespository.findById(id).get());
+		teammember.setRoom(roomrespository.findById(roomid).get());
+		teammemberrespository.save(teammember);
 	}
 }

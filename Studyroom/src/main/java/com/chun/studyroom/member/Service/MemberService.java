@@ -4,5 +4,7 @@ import com.chun.studyroom.member.DTO.MemberDTO;
 
 public interface MemberService {
 	void insertmember(MemberDTO member);
-	void selectmember(String id, String password) throws Exception;
+	String selectmember(String id, String password) throws Exception;
+	Long memberid(String id) throws Exception;
+	void applyteam(Long id, Long roomid);
 }
