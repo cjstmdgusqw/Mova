@@ -72,7 +72,7 @@ public class MemberController {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+//	팀 멤버 조회
 	@GetMapping("/selectMember")
 	public ResponseEntity<TeamMember> selectTeamMember(@RequestParam("state") Long state, @RequestParam("roomid") String roomid){
 		try {
