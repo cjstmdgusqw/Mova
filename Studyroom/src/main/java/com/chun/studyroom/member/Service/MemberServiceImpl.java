@@ -52,4 +52,14 @@ public class MemberServiceImpl implements MemberService {
 		teammember.setRoom(roomrespository.findById(roomid).get());
 		teammemberrespository.save(teammember);
 	}
+
+	@Override
+	public TeamMember check(Long id, Long roomid) {
+		return teammemberrespository.check(id, roomid);
+	}
+
+	@Override
+	public TeamMember selectTeamMember(Long state, String roomid) {
+		return teammemberrespository.selectTeamMember(state, roomid);
+	}
 }

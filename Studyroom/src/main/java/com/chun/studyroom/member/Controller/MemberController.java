@@ -2,8 +2,6 @@ package com.chun.studyroom.member.Controller;
 
 import java.util.Map;
 
-import javax.websocket.Session;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chun.studyroom.member.DTO.MemberDTO;
+import com.chun.studyroom.member.Entity.TeamMember;
 import com.chun.studyroom.member.Service.MemberService;
 
 @RestController
@@ -25,6 +24,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberservice;
 	
+//	회원가입
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@ModelAttribute MemberDTO memberDto){
 		try {
@@ -35,7 +35,7 @@ public class MemberController {
 	         return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+//	로그인
 	@PostMapping("/login")
 	public ResponseEntity<String> Login(@RequestBody Map<String, String> param){
 		try {
@@ -47,6 +47,7 @@ public class MemberController {
 		}
 	}
 	
+//	memberid조회
 	@GetMapping("/selectmemberID")
 	public ResponseEntity<Long> select(@RequestParam("id") String id){
 		try {
@@ -57,14 +58,27 @@ public class MemberController {
 		}
 	}
 	
+//	방 신청 
 	@PostMapping("/apply")
 	public ResponseEntity<String> applyMember(@RequestBody Map<String, Long> param){
 		try {
+			if(memberservice.check(param.get("id"), param.get("roomid")) != null){
+				return new ResponseEntity<String>("이미 신청하셨습니다", HttpStatus.OK);
+			}
 			memberservice.applyteam(param.get("id"), param.get("roomid"));
 			return new ResponseEntity<String>("신청이 완료되었습니다", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/selectMember")
+	public ResponseEntity<TeamMember> selectTeamMember(@RequestParam("state") Long state, @RequestParam("roomid") String roomid){
+		try {
+			return new ResponseEntity<TeamMember> (memberservice.selectTeamMember(state, roomid), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<TeamMember> (HttpStatus.BAD_REQUEST);
 		}
 	}
 }
