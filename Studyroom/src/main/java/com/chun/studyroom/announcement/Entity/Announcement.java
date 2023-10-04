@@ -1,5 +1,7 @@
 package com.chun.studyroom.announcement.Entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,12 @@ public class Announcement {
 	
 	@Column
 	private String announcement_content;
+
+	@Column
+    private LocalDate creation_date; // LocalDate로 변경
+	
+	@Column
+	private int view_count;
 	
 	@ManyToOne
 	private Room room;
