@@ -40,4 +40,14 @@ public class AnnouncementController {
 			return new ResponseEntity<List<AnnouncementDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("detailAnnouncement")
+	public ResponseEntity<AnnouncementDTO> detailannouncement(@RequestParam("roomid") Long roomid, @RequestParam("announcementId") Long announcementId){
+		try {
+			return new ResponseEntity<AnnouncementDTO>(announcementservice.detailAnnouncement(roomid, announcementId), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<AnnouncementDTO>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package com.chun.studyroom.member.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,11 +75,11 @@ public class MemberController {
 	}
 //	팀 멤버 조회
 	@GetMapping("/selectMember")
-	public ResponseEntity<TeamMember> selectTeamMember(@RequestParam("state") Long state, @RequestParam("roomid") String roomid){
+	public ResponseEntity<List<TeamMember>> selectTeamMember(@RequestParam("state") Long state, @RequestParam("roomid") String roomid){
 		try {
-			return new ResponseEntity<TeamMember> (memberservice.selectTeamMember(state, roomid), HttpStatus.OK);
+			return new ResponseEntity<List<TeamMember>> (memberservice.selectTeamMember(state, roomid), HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<TeamMember> (HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<TeamMember>> (HttpStatus.BAD_REQUEST);
 		}
 	}
 }

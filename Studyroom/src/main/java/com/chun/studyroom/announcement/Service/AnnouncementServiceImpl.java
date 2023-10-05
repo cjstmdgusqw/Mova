@@ -50,4 +50,20 @@ public class AnnouncementServiceImpl implements AnnouncementService{
 		}
 		return announcements;
 	}
+
+	@Override
+	public AnnouncementDTO detailAnnouncement(Long roomid, Long announcementId) {
+		Announcement announcement = announcementRepo.detailAnnouncement(roomid, announcementId);
+		int view_count = announcement.getView_count()+1;
+		AnnouncementDTO announcement2 = new AnnouncementDTO();
+		announcement2.setAnnouncement_content(announcement.getAnnouncement_content());
+		announcement2.setAnnouncement_id(announcement2.getAnnouncement_id());
+		announcement2.setAnnouncement_title(announcement.getAnnouncement_title());
+		announcement2.setCreation_date(announcement.getCreation_date());
+		announcement2.setRoom(announcement.getRoom());
+		announcement.setView_count(view_count);
+		announcementRepo.save(announcement);
+		announcement2.setView_count(announcement.getView_count());
+		return announcement2;
+	}
 }	

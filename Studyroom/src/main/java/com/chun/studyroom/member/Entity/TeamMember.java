@@ -28,8 +28,7 @@ public class TeamMember {
 	private Long team_member_id;
 	
 	@Column(nullable = true)
-	@ColumnDefault("0")
-	private Long state;
+	private Integer state;
 	
 	@ManyToOne
 	private Member member;

@@ -1,5 +1,7 @@
 package com.chun.studyroom.member.Service;
 
+import java.util.List;
+
 import com.chun.studyroom.member.DTO.MemberDTO;
 import com.chun.studyroom.member.Entity.TeamMember;
 
@@ -11,5 +13,5 @@ public interface MemberService {
 	
 	
 	TeamMember check(Long id, Long roomid);
-	TeamMember selectTeamMember(Long state, String roomid);
+	List<TeamMember> selectTeamMember(Long state, String roomid);
 }

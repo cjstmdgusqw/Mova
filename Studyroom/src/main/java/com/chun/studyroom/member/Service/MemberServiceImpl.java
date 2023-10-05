@@ -50,16 +50,18 @@ public class MemberServiceImpl implements MemberService {
 		TeamMember teammember = new TeamMember();
 		teammember.setMember(memberrespository.findById(id).get());
 		teammember.setRoom(roomrespository.findById(roomid).get());
+		teammember.setState(0);
 		teammemberrespository.save(teammember);
 	}
 
 	@Override
 	public TeamMember check(Long id, Long roomid) {
+		System.out.println(id);
 		return teammemberrespository.check(id, roomid);
 	}
 
 	@Override
-	public TeamMember selectTeamMember(Long state, String roomid) {
+	public List<TeamMember> selectTeamMember(Long state, String roomid) {
 		return teammemberrespository.selectTeamMember(state, roomid);
 	}
 }
