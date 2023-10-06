@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chun.studyroom.member.Entity.Member;
+import com.chun.studyroom.member.Entity.TeamMember;
 import com.chun.studyroom.member.Repository.MemberRespository;
+import com.chun.studyroom.member.Repository.TeamMemberRespository;
 import com.chun.studyroom.room.DTO.RoomDTO;
 import com.chun.studyroom.room.Entity.Room;
 import com.chun.studyroom.room.Respository.RoomRespository;
@@ -20,6 +22,9 @@ public class RoomServiceImpl implements RoomService {
 	
 	@Autowired
 	private MemberRespository memberrepository;
+	
+	@Autowired
+	private TeamMemberRespository teammemberrespository;
 
 	@Override
 	public void makeroom(RoomDTO roomdto) {
@@ -68,6 +73,38 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomTitle(rRoom.get().getRoomTitle());
 		room.setMember(rRoom.get().getMember());
 		return room;
+	}
+
+	@Override
+	public List<RoomDTO> selectMypageRoom(String id) throws Exception {
+		List<Room> rooms = roomrepository.selectMypageRoom(id);
+		List<RoomDTO> roomDTO = new ArrayList<RoomDTO>();
+		for(Room room : rooms) {
+			RoomDTO roomdto = new RoomDTO();
+			roomdto.setMemberId(room.getMember().getMemberId());
+			roomdto.setRoomTitle(room.getRoomTitle());
+			roomdto.setRoomContent(room.getRoomContent());
+			roomdto.setMember(room.getMember());
+			roomdto.setRoomId(room.getRoomId());
+			roomDTO.add(roomdto);
+		}
+		return roomDTO;
+	}
+
+	@Override
+	public List<RoomDTO> selectCorrectRoom(String id) throws Exception {
+		List<TeamMember> teammember = teammemberrespository.selectCorrectRoom(id);
+		List<RoomDTO> roomDTO = new ArrayList<RoomDTO>();
+		for(TeamMember member : teammember) {
+			RoomDTO roomdto = new RoomDTO();
+			roomdto.setRoomId(member.getRoom().getRoomId());
+			roomdto.setRoomTitle(member.getRoom().getRoomTitle());
+			roomdto.setRoomContent(member.getRoom().getRoomContent());
+			roomdto.setMemberId(member.getRoom().getMember().getMemberId());
+			roomdto.setMemberleader(member.getRoom().getMember().getNickname());
+			roomDTO.add(roomdto);
+		}
+		return roomDTO;
 	}
 
 }

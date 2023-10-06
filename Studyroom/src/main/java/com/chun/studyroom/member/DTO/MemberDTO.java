@@ -1,5 +1,9 @@
 package com.chun.studyroom.member.DTO;
 
+import java.util.List;
+
+import com.chun.studyroom.room.Entity.Room;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,4 +17,6 @@ public class MemberDTO {
 	private String password;
 	private String name;
 	private String nickname;
+	private String filename;
+	private List<Room> rooms;
 }

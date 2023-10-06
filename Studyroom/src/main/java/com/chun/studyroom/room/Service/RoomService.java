@@ -8,4 +8,6 @@ public interface RoomService {
 	void makeroom(RoomDTO roomdto) throws Exception;
 	List<RoomDTO> selectAllRoom() throws Exception;
 	RoomDTO selectroom(Long id) throws Exception;
+	List<RoomDTO> selectMypageRoom(String id) throws Exception;
+	List<RoomDTO> selectCorrectRoom(String id) throws Exception;
 }

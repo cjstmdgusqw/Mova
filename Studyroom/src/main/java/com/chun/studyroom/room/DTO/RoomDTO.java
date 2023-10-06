@@ -19,4 +19,5 @@ public class RoomDTO {
 	private String roomContent;
 	private Member member;
 	private Long memberId;
+	private String memberleader;
 }

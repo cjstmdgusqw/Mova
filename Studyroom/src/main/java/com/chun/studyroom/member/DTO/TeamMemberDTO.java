@@ -8,4 +8,5 @@ public class TeamMemberDTO {
 	private Long state;
 	private Member member;
 	private Room room;
+	
 }	

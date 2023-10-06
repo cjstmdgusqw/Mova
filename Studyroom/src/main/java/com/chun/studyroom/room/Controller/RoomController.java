@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chun.studyroom.room.DTO.RoomDTO;
@@ -47,6 +48,24 @@ public class RoomController {
 			return new ResponseEntity<RoomDTO>(roomservice.selectroom(id), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<RoomDTO>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("selectmypage")
+	public ResponseEntity<List<RoomDTO>> selectmypageroom(@RequestParam String id){
+		try {
+			return new ResponseEntity<List<RoomDTO>>(roomservice.selectMypageRoom(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("selectcorrectroom")
+	public ResponseEntity<List<RoomDTO>> selectCorrectRoom(@RequestParam String id){
+		try {
+			return new ResponseEntity<List<RoomDTO>>(roomservice.selectCorrectRoom(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }
