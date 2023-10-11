@@ -1,8 +1,11 @@
 package com.chun.studyroom.community.Entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,11 +38,14 @@ public class Community {
 	private String comunity_content;
 	
 	@Column
-	private LocalDateTime community_date;
+	private LocalDate community_date;
 	
 	@ManyToOne
 	private Room room;
 	
 	@ManyToOne
 	private TeamMember teammember;
+	
+	
+    private String filename;
 }

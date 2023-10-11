@@ -52,18 +52,18 @@ public class RoomController {
 	}
 	
 	@GetMapping("selectmypage")
-	public ResponseEntity<List<RoomDTO>> selectmypageroom(@RequestParam String id){
+	public ResponseEntity<List<RoomDTO>> selectmypageroom(@RequestParam String id, @RequestParam Long state){
 		try {
-			return new ResponseEntity<List<RoomDTO>>(roomservice.selectMypageRoom(id), HttpStatus.OK);
+			return new ResponseEntity<List<RoomDTO>>(roomservice.selectMypageRoom(id, state), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
 	@GetMapping("selectcorrectroom")
-	public ResponseEntity<List<RoomDTO>> selectCorrectRoom(@RequestParam String id){
+	public ResponseEntity<List<RoomDTO>> selectCorrectRoom(@RequestParam String id, @RequestParam Long state){
 		try {
-			return new ResponseEntity<List<RoomDTO>>(roomservice.selectCorrectRoom(id), HttpStatus.OK);
+			return new ResponseEntity<List<RoomDTO>>(roomservice.selectCorrectRoom(id, state), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
 		}

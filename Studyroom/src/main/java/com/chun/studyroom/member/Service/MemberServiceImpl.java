@@ -38,7 +38,6 @@ public class MemberServiceImpl implements MemberService {
 		member.setNickname(memberDto.getNickname());
 		member.setPassword(memberDto.getPassword());
 		member.setFilename(memberDto.getFilename());
-
 		fileService.fileUpload(file);
 		
 		memberrespository.save(member);

@@ -40,6 +40,12 @@ public class RoomServiceImpl implements RoomService {
 		Optional<Member> member = memberrepository.findById(roomdto.getMemberId());
 		room.setMember(member.get());
 		roomrepository.save(room);
+		
+		TeamMember teammember = new TeamMember();
+		teammember.setState(2);
+		teammember.setMember(member.get());
+		teammember.setRoom(room);
+		teammemberrespository.save(teammember);
 	}
 
 	@Override
@@ -62,38 +68,38 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public RoomDTO selectroom(Long id) throws Exception {
-		Optional<Room> rRoom = (roomrepository.findById(id));
+		Room rRoom = roomrepository.findById(id).get();
 		RoomDTO room = new RoomDTO();
-		room.setRoomContent(rRoom.get().getRoomContent());
-		room.setRoomDeadline(rRoom.get().getRoomDeadline());
-		room.setRoomId(rRoom.get().getRoomId());
-		room.setRoomOnline(rRoom.get().getRoomOnline());
-		room.setRoomPeriod(rRoom.get().getRoomPeriod());
-		room.setRoomPersonnel(rRoom.get().getRoomPersonnel());
-		room.setRoomTitle(rRoom.get().getRoomTitle());
-		room.setMember(rRoom.get().getMember());
+		room.setRoomContent(rRoom.getRoomContent());
+		room.setRoomDeadline(rRoom.getRoomDeadline());
+		room.setRoomId(rRoom.getRoomId());
+		room.setRoomOnline(rRoom.getRoomOnline());
+		room.setRoomPeriod(rRoom.getRoomPeriod());
+		room.setRoomPersonnel(rRoom.getRoomPersonnel());
+		room.setRoomTitle(rRoom.getRoomTitle());
+		room.setMember(rRoom.getMember());
 		return room;
 	}
 
 	@Override
-	public List<RoomDTO> selectMypageRoom(String id) throws Exception {
-		List<Room> rooms = roomrepository.selectMypageRoom(id);
+	public List<RoomDTO> selectMypageRoom(String id, Long state) throws Exception {
+		List<TeamMember> teammember = teammemberrespository.selectCorrectRoom(id, state);
 		List<RoomDTO> roomDTO = new ArrayList<RoomDTO>();
-		for(Room room : rooms) {
+		for(TeamMember member : teammember) {
 			RoomDTO roomdto = new RoomDTO();
-			roomdto.setMemberId(room.getMember().getMemberId());
-			roomdto.setRoomTitle(room.getRoomTitle());
-			roomdto.setRoomContent(room.getRoomContent());
-			roomdto.setMember(room.getMember());
-			roomdto.setRoomId(room.getRoomId());
+			roomdto.setRoomId(member.getRoom().getRoomId());
+			roomdto.setRoomTitle(member.getRoom().getRoomTitle());
+			roomdto.setRoomContent(member.getRoom().getRoomContent());
+			roomdto.setMemberId(member.getRoom().getMember().getMemberId());
+			roomdto.setMemberleader(member.getRoom().getMember().getNickname());
 			roomDTO.add(roomdto);
 		}
 		return roomDTO;
 	}
 
 	@Override
-	public List<RoomDTO> selectCorrectRoom(String id) throws Exception {
-		List<TeamMember> teammember = teammemberrespository.selectCorrectRoom(id);
+	public List<RoomDTO> selectCorrectRoom(String id, Long state) throws Exception {
+		List<TeamMember> teammember = teammemberrespository.selectCorrectRoom(id, state);
 		List<RoomDTO> roomDTO = new ArrayList<RoomDTO>();
 		for(TeamMember member : teammember) {
 			RoomDTO roomdto = new RoomDTO();

@@ -18,6 +18,9 @@ public interface TeamMemberRespository extends JpaRepository<TeamMember, Long> {
 	@Query(value="SELECT * FROM team_member where state=:state and room_room_id=:roomid", nativeQuery = true)
 	List<TeamMember> selectApplyTeamMember(@Param("state") Long state, @Param("roomid") String roomid);
 	
-	@Query(value="SELECT * FROM team_member where member_member_id=:id", nativeQuery = true)
-	List<TeamMember> selectCorrectRoom(@Param("id") String id);
+	@Query(value="SELECT * FROM team_member where member_member_id=:id and state=:state", nativeQuery = true)
+	List<TeamMember> selectCorrectRoom(@Param("id") String id, @Param("state") Long state);
+	
+	@Query(value="SELECT * FROM team_member where member_member_id=:memberid and room_room_id=:roomid", nativeQuery = true)
+	TeamMember TeamCorrectMember(@Param("memberid") String memberid, @Param("roomid") Long roomid);
 }
