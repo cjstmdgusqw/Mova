@@ -43,4 +43,13 @@ public class CommunityController {
 			return new ResponseEntity<List<CommunityDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/detailfeed")
+	public ResponseEntity<CommunityDTO> detailCommunity(@RequestParam Long communityId){
+		try {
+			return new ResponseEntity<CommunityDTO> (communityservice.detailfeed(communityId), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<CommunityDTO> (HttpStatus.BAD_REQUEST);
+		}
+	}
 }

@@ -60,9 +60,22 @@ public class CommunityServiceImpl implements CommunityService {
 			communitydto.setTitle(community2.getComunity_title());
 			communitydto.setFilename(community2.getFilename());
 			communitydto.setMember(community2.getTeammember().getMember());
+			communitydto.setCommunity_id(community2.getCommunity_id());
 			communitys.add(communitydto);
 		}
 		return communitys;
+	}
+
+	@Override
+	public CommunityDTO detailfeed(Long communityId) {
+		Community community = communityRepo.findById(communityId).get();
+		CommunityDTO communitydto = new CommunityDTO();
+		communitydto.setCommunity_id(community.getCommunity_id());
+		communitydto.setContent(community.getComunity_content());
+		communitydto.setFilename(community.getFilename());
+		communitydto.setMember(community.getTeammember().getMember());
+		communitydto.setTitle(community.getComunity_title());
+		return communitydto;
 	}
 
 }

@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @Data
 public class CommunityDTO {
+	private Long community_id;
 	private String title;
 	private String content;
 	private String filename;

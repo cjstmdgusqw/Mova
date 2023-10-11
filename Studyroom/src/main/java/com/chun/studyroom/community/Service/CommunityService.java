@@ -9,4 +9,5 @@ import com.chun.studyroom.community.DTO.CommunityDTO;
 public interface CommunityService {
 	void writefeed(Long roomid, String memberid, CommunityDTO communitydto,  MultipartFile[] file);
 	List<CommunityDTO> selectfeed(Long roomid);
+	CommunityDTO detailfeed(Long communityId);
 }
