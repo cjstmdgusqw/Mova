@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chun.studyroom.community.DTO.CommunityCommentDTO;
 import com.chun.studyroom.community.DTO.CommunityDTO;
+import com.chun.studyroom.community.Entity.CommunityComment;
+import com.chun.studyroom.community.Repository.CommunityCommentRepository;
 import com.chun.studyroom.community.Service.CommunityService;
 
 @RestController
@@ -50,6 +53,25 @@ public class CommunityController {
 			return new ResponseEntity<CommunityDTO> (communityservice.detailfeed(communityId), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<CommunityDTO> (HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping("/writecomment")
+	public ResponseEntity<String> writecomment(@ModelAttribute CommunityCommentDTO commentDTO){
+		try {
+			communityservice.writeComment(commentDTO);
+			return new ResponseEntity<String> ("댓글 작성완료", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/selectcomment")
+	public ResponseEntity<List<CommunityCommentDTO>> selectcomment(@RequestParam String communityId){
+		try {
+			return new ResponseEntity<List<CommunityCommentDTO>>(communityservice.selectComment(communityId),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<CommunityCommentDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

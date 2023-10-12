@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chun.studyroom.community.DTO.CommunityCommentDTO;
 import com.chun.studyroom.community.DTO.CommunityDTO;
 import com.chun.studyroom.community.Entity.Community;
+import com.chun.studyroom.community.Entity.CommunityComment;
+import com.chun.studyroom.community.Repository.CommunityCommentRepository;
 import com.chun.studyroom.community.Repository.CommunityRepository;
 import com.chun.studyroom.member.Entity.TeamMember;
 import com.chun.studyroom.member.Repository.TeamMemberRespository;
@@ -30,6 +33,9 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired
 	private CommunityRepository communityRepo;
+	
+	@Autowired
+	private CommunityCommentRepository commentRepo;
 
 	@Override
 	public void writefeed(Long roomid, String memberid, CommunityDTO communitydto, MultipartFile[] file) {
@@ -77,5 +83,29 @@ public class CommunityServiceImpl implements CommunityService {
 		communitydto.setTitle(community.getComunity_title());
 		return communitydto;
 	}
+
+	@Override
+	public void writeComment(CommunityCommentDTO commentDTO) {
+		CommunityComment comment = new CommunityComment();
+		List<TeamMember> member = teammemberRepo.TeamMember(commentDTO.getMemberid(), commentDTO.getRoomid());
+		comment.setComment_content(commentDTO.getComment());
+		comment.setTeammember(member.get(0));
+		comment.setComment(communityRepo.findById(commentDTO.getCommunity_id()).get());
+		commentRepo.save(comment);
+	}
+
+	@Override
+	public List<CommunityCommentDTO> selectComment(String communityId) {
+		List<CommunityComment> comments = commentRepo.selectcomment(communityId);
+		List<CommunityCommentDTO> comment2 = new ArrayList<CommunityCommentDTO>();
+		for (CommunityComment comment : comments) {
+			CommunityCommentDTO com = new CommunityCommentDTO();
+			com.setComment(comment.getComment_content());
+			com.setFilename(comment.getTeammember().getMember().getFilename());
+			com.setWriter(comment.getTeammember().getMember().getNickname());
+			comment2.add(com);
+		}
+		return comment2;
+	}	
 
 }
