@@ -67,7 +67,7 @@ public class MemberController {
 			return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 //	방 신청 
 	@PostMapping("/apply")
 	public ResponseEntity<String> applyMember(@RequestBody Map<String, Long> param){
@@ -130,8 +130,8 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("mypage")
-	public ResponseEntity<MemberDTO> mypage(@RequestParam("id") String memberid){
+	@GetMapping("/mypage")
+	public ResponseEntity<MemberDTO> mypage(@RequestParam("id") Long memberid){
 		try {
 			return new ResponseEntity<MemberDTO>(memberservice.mypage(memberid),HttpStatus.OK);
 		} catch (Exception e) {

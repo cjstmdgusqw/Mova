@@ -13,7 +13,7 @@ public interface MemberService {
 	Long memberid(String id) throws Exception;
 	void applyteam(Long id, Long roomid) throws Exception;
 	
-	MemberDTO mypage(String id) throws Exception;
+	MemberDTO mypage(Long id) throws Exception;
 	
 	
 	TeamMember check(Long id, Long roomid) throws Exception;

@@ -17,5 +17,4 @@ public class CommunityCommentDTO {
 	
 	private String filename;
 	private String writer;
-	
 }

@@ -74,4 +74,34 @@ public class CommunityController {
 			return new ResponseEntity<List<CommunityCommentDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("increaselike")
+	public ResponseEntity<String> increaselike(@RequestParam String communityId, @RequestParam Long memberId) {
+		try {
+			communityservice.increaselike(communityId,memberId);
+			return new ResponseEntity<String> ("좋아요", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("decreaselike")
+	public ResponseEntity<String> decreaselike(@RequestParam String communityId,  @RequestParam Long memberId) {
+		try {
+			communityservice.decreaselike(communityId, memberId);
+			return new ResponseEntity<String> ("좋아요 취소", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String> (HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("checklike")
+	public ResponseEntity<Integer> checklike(@RequestParam String communityId,  @RequestParam Long memberId) {
+		try {
+			return new ResponseEntity<Integer> (communityservice.checklike(communityId, memberId), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Integer> (HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }

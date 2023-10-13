@@ -14,4 +14,9 @@ public interface CommunityService {
 	
 	void writeComment(CommunityCommentDTO commentDTO);
 	List<CommunityCommentDTO> selectComment(String communityId);
+	
+	void increaselike(String communityid, Long memberid);
+	void decreaselike(String communityid, Long memberid);
+	
+	Integer checklike(String communityid, Long memberid);
 }

@@ -12,9 +12,12 @@ import com.chun.studyroom.community.DTO.CommunityCommentDTO;
 import com.chun.studyroom.community.DTO.CommunityDTO;
 import com.chun.studyroom.community.Entity.Community;
 import com.chun.studyroom.community.Entity.CommunityComment;
+import com.chun.studyroom.community.Entity.Communitylike;
 import com.chun.studyroom.community.Repository.CommunityCommentRepository;
+import com.chun.studyroom.community.Repository.CommunityLikeRepository;
 import com.chun.studyroom.community.Repository.CommunityRepository;
 import com.chun.studyroom.member.Entity.TeamMember;
+import com.chun.studyroom.member.Repository.MemberRespository;
 import com.chun.studyroom.member.Repository.TeamMemberRespository;
 import com.chun.studyroom.room.Entity.Room;
 import com.chun.studyroom.room.Respository.RoomRespository;
@@ -25,11 +28,17 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private FileService fileService;
 	
+	@Autowired 
+	private MemberRespository memberRepo;
+	
 	@Autowired
 	private TeamMemberRespository teammemberRepo;
 	
 	@Autowired
 	private RoomRespository roomRepo;
+	
+	@Autowired
+	private CommunityLikeRepository communityLikeRepo;
 	
 	@Autowired
 	private CommunityRepository communityRepo;
@@ -47,7 +56,7 @@ public class CommunityServiceImpl implements CommunityService {
 		community.setCommunity_date(LocalDate.now());
 		community.setTeammember(teammember);
 		community.setRoom(room);
-		community.setFilename(communitydto.getFilename());
+		community.setFilename(communitydto.getFilename());;
 		for(int i=0; i < file.length; i++) {
 			if (file[i] != null && !file[i].isEmpty()) {
 				fileService.fileUpload(file[i]);
@@ -106,6 +115,24 @@ public class CommunityServiceImpl implements CommunityService {
 			comment2.add(com);
 		}
 		return comment2;
-	}	
+	}
 
+	@Override
+	public void increaselike(String communityid, Long memberid) {
+		Communitylike communitylike = new Communitylike();
+		communitylike.setMember(memberRepo.findById(memberid).get());
+		communitylike.setCommunity(communityRepo.findById(Long.parseLong(communityid)).get());
+		communityLikeRepo.save(communitylike);
+	}
+
+	@Override
+	public void decreaselike(String communityid, Long memberid) {
+		communityLikeRepo.deletelike(communityid,memberid);
+	}
+
+	@Override
+	public Integer checklike(String communityid, Long memberid) {
+		return communityLikeRepo.checklike(communityid, memberid);
+	}
+	
 }

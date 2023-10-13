@@ -96,8 +96,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO mypage(String id) throws Exception {
-		Member member = memberrespository.findById(Long.parseLong(id)).get();
+	public MemberDTO mypage(Long id) throws Exception {
+		Member member = memberrespository.findById(id).get();
 		MemberDTO memberdto = new MemberDTO();
 		memberdto.setFilename(member.getFilename());
 		memberdto.setId(member.getId());
