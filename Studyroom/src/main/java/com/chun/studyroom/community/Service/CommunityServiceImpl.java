@@ -112,6 +112,7 @@ public class CommunityServiceImpl implements CommunityService {
 			com.setComment(comment.getComment_content());
 			com.setFilename(comment.getTeammember().getMember().getFilename());
 			com.setWriter(comment.getTeammember().getMember().getNickname());
+			com.setMemberid(comment.getTeammember().getMember().getMemberId().toString());
 			comment2.add(com);
 		}
 		return comment2;
