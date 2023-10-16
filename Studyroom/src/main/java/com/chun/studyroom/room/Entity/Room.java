@@ -48,6 +48,9 @@ public class Room {
 	@Column
 	private String roomContent;
 	
+	@Column(nullable=true)
+	private String link;
+	
 	@ManyToOne
 	private Member member;
 }

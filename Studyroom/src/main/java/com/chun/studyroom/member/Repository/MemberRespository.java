@@ -13,5 +13,8 @@ public interface MemberRespository extends JpaRepository<Member, Long> {
 	
 	@Query(value="select member_id from member where id=:id", nativeQuery = true)
 	Long selectmemberId(@Param("id") String id);
+	
+	@Query(value="select * from member where id=:memberid", nativeQuery = true)
+	Member selectMember2(@Param("memberid") String memberid);
 
 }

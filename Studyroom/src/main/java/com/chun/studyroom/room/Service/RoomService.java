@@ -10,4 +10,6 @@ public interface RoomService {
 	RoomDTO selectroom(Long id) throws Exception;
 	List<RoomDTO> selectMypageRoom(String id, Long state) throws Exception;
 	List<RoomDTO> selectCorrectRoom(String id, Long state) throws Exception;
+	
+	void applylink(String link, String roomid) throws Exception;
 }

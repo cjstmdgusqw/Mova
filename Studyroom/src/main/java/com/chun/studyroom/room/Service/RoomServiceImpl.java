@@ -78,6 +78,7 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomPersonnel(rRoom.getRoomPersonnel());
 		room.setRoomTitle(rRoom.getRoomTitle());
 		room.setMember(rRoom.getMember());
+		room.setLink(rRoom.getLink());
 		return room;
 	}
 
@@ -112,5 +113,14 @@ public class RoomServiceImpl implements RoomService {
 		}
 		return roomDTO;
 	}
+
+	@Override
+	public void applylink(String link, String roomid) throws Exception {
+		Room room = roomrepository.findById(Long.parseLong(roomid)).get();
+		room.setLink(link);
+		roomrepository.save(room);
+	}
+
+
 
 }

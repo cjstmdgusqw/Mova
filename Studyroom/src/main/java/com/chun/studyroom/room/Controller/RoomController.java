@@ -68,4 +68,14 @@ public class RoomController {
 			return new ResponseEntity<List<RoomDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PostMapping("applylink")
+	public ResponseEntity<String> selectCorrectRoom(@RequestParam String link, @RequestParam String roomid){
+		try {
+			roomservice.applylink(link, roomid);
+			return new ResponseEntity<String> ("링크 등록완료", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

@@ -20,4 +20,5 @@ public class RoomDTO {
 	private Member member;
 	private Long memberId;
 	private String memberleader;
+	private String link;
 }
