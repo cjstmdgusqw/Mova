@@ -76,6 +76,7 @@ public class CommunityServiceImpl implements CommunityService {
 			communitydto.setFilename(community2.getFilename());
 			communitydto.setMember(community2.getTeammember().getMember());
 			communitydto.setCommunity_id(community2.getCommunity_id());
+			communitydto.setLike_count(community2.getLikes().size());
 			communitys.add(communitydto);
 		}
 		return communitys;
@@ -90,6 +91,7 @@ public class CommunityServiceImpl implements CommunityService {
 		communitydto.setFilename(community.getFilename());
 		communitydto.setMember(community.getTeammember().getMember());
 		communitydto.setTitle(community.getComunity_title());
+		communitydto.setLike_count(community.getLikes().size());
 		return communitydto;
 	}
 

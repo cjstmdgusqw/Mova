@@ -103,5 +103,4 @@ public class CommunityController {
 			return new ResponseEntity<Integer> (HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }

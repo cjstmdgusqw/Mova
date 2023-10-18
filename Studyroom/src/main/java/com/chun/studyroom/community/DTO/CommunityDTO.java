@@ -18,5 +18,5 @@ public class CommunityDTO {
 	private String content;
 	private String filename;
 	private Member member;
-	private Long like_count;
+	private Integer like_count;
 }	

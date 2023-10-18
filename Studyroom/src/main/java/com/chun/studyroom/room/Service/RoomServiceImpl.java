@@ -35,7 +35,6 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomPeriod(roomdto.getRoomPeriod());
 		room.setRoomPersonnel(roomdto.getRoomPersonnel());
 		room.setRoomTitle(roomdto.getRoomTitle());	
-		System.out.println(roomdto.getMemberId());
 		
 		Optional<Member> member = memberrepository.findById(roomdto.getMemberId());
 		room.setMember(member.get());
